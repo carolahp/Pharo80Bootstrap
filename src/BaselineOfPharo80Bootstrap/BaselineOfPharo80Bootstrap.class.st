@@ -16,7 +16,7 @@ BaselineOfPharo80Bootstrap >> baseline: spec [
 			repository: 'github://tesonep/hermes:v2.5.1';
   			loads: 'core' ].
 		spec
-			 package: 'Pharo30Bootstrap'.
+			 package: 'Pharo80Bootstrap'.
 		spec baseline: 'Ring2' with: [ spec
 			repository: 'github://carolahp/Ring2:v1.2.2/src';
   			loads: 'bootstrap' ].  			

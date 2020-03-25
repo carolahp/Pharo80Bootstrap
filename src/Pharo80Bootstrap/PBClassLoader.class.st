@@ -5,7 +5,6 @@ Class {
 		'builder',
 		'initializedClasses',
 		'environment',
-		'systemDefinition',
 		'compactClasses',
 		'shouldInitializeClassPool',
 		'useClassBuilder',
@@ -68,7 +67,7 @@ PBClassLoader >> classDefinitionFor: aClass [
 { #category : #accessing }
 PBClassLoader >> classForClassMirror: anEPClassMirror [ 
 	
-	^ mirrorDefinitionMap at: anEPClassMirror ifAbsent: [ systemDefinition classNamed: #Class ]
+	^ mirrorDefinitionMap at: anEPClassMirror ifAbsent: [ self systemDefinition classNamed: #Class ]
 ]
 
 { #category : #'class-loading' }
@@ -135,7 +134,7 @@ PBClassLoader >> createJustStubs [
 PBClassLoader >> createStubForClassNamed: aSymbol [
 
 	| class stub |
-	class := systemDefinition classNamed: aSymbol.
+	class := self systemDefinition classNamed: aSymbol.
 	^ class isBehavior
 		ifTrue: [
 			stub := self createClassStubForDefinition: class.
@@ -206,7 +205,7 @@ PBClassLoader >> initializeClassNamed: aClassName [
 PBClassLoader >> initializeClassPool: aClassName [
 
 	| definition class classPool classVariableBindings |
-	definition := systemDefinition classNamed: aClassName.
+	definition := self systemDefinition classNamed: aClassName.
 	classVariableBindings := definition classVarNames collect: [ :each | | classVar |
 		classVar := (self classNamed: #ClassVariable) basicNew.
 		classVar instanceVariableAtIndex: 1 put: (each asLiteralInObjectSpace: builder objectSpace) ].
@@ -230,7 +229,7 @@ PBClassLoader >> initializeClassPools [
 
 	shouldInitializeClassPool := true.
 	environment keysDo: [ :name |
-		(systemDefinition classNamed: name) isBehavior
+		(self systemDefinition classNamed: name) isBehavior
 			ifTrue: [ self initializeClassPool: name ] ].
 ]
 
@@ -299,7 +298,7 @@ PBClassLoader >> metaclassClass [
 	
 	environment at: #Metaclass ifPresent: [ :aClass | ^ aClass ].
 
-	aClassMapping := systemDefinition classNamed: #Metaclass.
+	aClassMapping := self systemDefinition classNamed: #Metaclass.
 	classFormat := self formatOfClass: aClassMapping.	
 	metaclassFormat := self formatOfClass: aClassMapping classSide.
 	
@@ -366,7 +365,7 @@ PBClassLoader >> registerClass: aClassMirror named: aName fullyLoaded: aBoolean 
 		builder objectSpace backend compactClassAt: aClassMirror asClassMirror compactClassIndex put: aClassMirror ].
 	
 	"We create a mapping between the real classes and their definitions for later"
-	self map: aClassMirror with: (systemDefinition classNamed: aName).
+	self map: aClassMirror with: (self systemDefinition classNamed: aName).
 	
 	"We reset the class map of the ast interpreter"
 	fullyLoaded at: aName put: aBoolean
@@ -389,11 +388,6 @@ PBClassLoader >> registerTrait: aTraitMirror named: aName fullyLoaded: aBoolean 
 	
 	objectSpace interpreter resetClassMap.
 "
-]
-
-{ #category : #accessing }
-PBClassLoader >> systemDefinition: aRFiEnvironment [ 
-	systemDefinition := aRFiEnvironment
 ]
 
 { #category : #stages }

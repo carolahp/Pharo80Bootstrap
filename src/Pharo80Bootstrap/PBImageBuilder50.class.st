@@ -623,7 +623,7 @@ PBImageBuilder50 >> installExtensionMethodsOf: aPackageDefinition prefixed: aPre
 				nextPutAll: methodClass name;
 				nextPutAll: '>>';
 				nextPutAll: methodDefinition selector ].
-		PBSubStepFinishedSignal log: logMessage.
+		PBSubStepFinishedSignal emit: logMessage.
 			
 		self installMethod: compiledMethod inBehavior: behaviorMirror ]
 ]

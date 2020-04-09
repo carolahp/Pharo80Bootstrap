@@ -216,7 +216,7 @@ PBImageBuilder50 >> createClasses [
 		withIndexDo: [ :aClassDefinition :index | | time |
 			time := [self createBehaviorFromDefinition: aClassDefinition.] timeToRun.
 			
-			PBSubStepFinishedSignal log: ((index printPaddedWith: $0 to: 3), '/' , 
+			PBSubStepFinishedSignal emit: ((index printPaddedWith: $0 to: 3), '/' , 
 								total asString, ' - ', 
 									time asString ,': Built behavior ', 
 										aClassDefinition name). ].
@@ -226,7 +226,7 @@ PBImageBuilder50 >> createClasses [
 	objectSpace backend smalltalkInstance: smalltalkInstance.
 	objectSpace environment: ((EPSystemDictionary withSystemDictionary: objectSpace backend systemDictionary) objectSpace: objectSpace; yourself).
 	
-	PBStepFinishedSignal log: 'Classes created'.
+	PBStepFinishedSignal emit: 'Classes created'.
 	self checkpoint: 'created_classes'.
 ]
 
@@ -599,7 +599,7 @@ PBImageBuilder50 >> installExtensionMethods [
 		self installExtensionMethodsOf: aPackageDefinition prefixed: (index printPaddedWith: $0 to: 3), '/' , total asString.
 	].
 
-	PBStepFinishedSignal log: 'Installed extension methods'.
+	PBStepFinishedSignal emit: 'Installed extension methods'.
 	self checkpoint: 'installed_extension_methods'.
 ]
 
@@ -652,7 +652,7 @@ PBImageBuilder50 >> installMethods [
 		"self checkpoint: 'installed_methods_wip'."
 		self installMethodsInBehaviorDefinition: aClassDefinition prefixed: (index printPaddedWith: $0 to: 3), '/' , total asString.
 	].
-	PBStepFinishedSignal log: 'installed_methods'.
+	PBStepFinishedSignal emit: 'installed_methods'.
 	self checkpoint: 'installed_methods'.
 ]
 
@@ -679,7 +679,7 @@ PBImageBuilder50 >> installMethodsInBehaviorMapping: aBehaviorMapping using: aMe
 	theClass := (self classNamed: aBehaviorMapping theNonMetaClass name) mirror.
 	aBehaviorMapping isMeta ifTrue: [ theClass := theClass classSide ].
 	newMethods doWithIndex: [ :method :index |
-		PBSubStepFinishedSignal log: aPrefix, ' - ', index asString, '/', newMethods size asString, ': Installing method ', 
+		PBSubStepFinishedSignal emit: aPrefix, ' - ', index asString, '/', newMethods size asString, ': Installing method ', 
 			aBehaviorMapping name, '>>', method selector.
 		
 		self installMethod: method inBehavior: theClass.

@@ -298,7 +298,7 @@ PBBootstrap >> imageName: aString [
 PBBootstrap >> initialize [
 	"Initialize the logging"
 
-	(CustomStringStreamBeacon with: FileStream stdout)
+	TranscriptLogger
 		startFor: PBStepStartedSignal , PBStepFinishedSignal
 ]
 

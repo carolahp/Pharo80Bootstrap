@@ -27,8 +27,8 @@ PBBootstrapCustom >> createImage [
 ]
 
 { #category : #accessing }
-PBBootstrapCustom >> environment: aRingEnvironment [
-	ringEnvironment := aRingEnvironment 
+PBBootstrapCustom >> environment [
+	^ self pbRepository ringEnvironment
 ]
 
 { #category : #accessing }
@@ -36,8 +36,8 @@ PBBootstrapCustom >> initializeBuilder [
 	builder := self builderClass new.
 	builder versionInfo: versionInfo.
 	builder imageFileReference: imageReference.
-	builder systemDefinition: ringEnvironment.
-	builder espellBackend instanceVariableMapping: (self instanceVariableMappingClass onEnvironment: ringEnvironment ).
+	builder systemDefinition: self environment.
+	builder espellBackend instanceVariableMapping: (self instanceVariableMappingClass onEnvironment: self environment ).
 ]
 
 { #category : #bootstrapping }
@@ -72,7 +72,7 @@ PBBootstrapCustom >> installProcess [
 ]
 
 { #category : #bootstrapping }
-PBBootstrapCustom >> installStubs [
+PBBootstrapCustom >> installStubsAndInitialObjects [
 	builder 
 		initializeBootstrapEnvironment;
 		createVMStubs;
@@ -109,22 +109,22 @@ PBBootstrapCustom >> pbRepository: aPBRepository [
 PBBootstrapCustom >> prepareEnvironmentForExportKeepingPackages: aListOfPackages [
 	| allPackages |
 
-	allPackages := ringEnvironment packages collect: #name.
+	allPackages := self environment packages collect: #name.
 
 	(allPackages reject: [ :x | aListOfPackages includes: x ])
 		do: [ :x | 
 			| p |
-			p := ringEnvironment ask packageNamed: x.
+			p := self environment ask packageNamed: x.
 			p extensionMethods do: [ :e | e methodClass removeLocalMethod: e ].
 			p definedBehaviors
 				do: [ :e | 
-					ringEnvironment removeBehavior: e.
-					ringEnvironment removeBehavior: e classSide
+					self environment removeBehavior: e.
+					self environment removeBehavior: e classSide
 					].
-			ringEnvironment removePackage: p].
+			self environment removePackage: p].
 
-	ringEnvironment cleanGlobalVariables.
-	ringEnvironment addGlobalsNamed: #(#Smalltalk #SourceFiles #Transcript #Undeclared #Display #TextConstants  #Sensor #Processor #SystemOrganization).
-	ringEnvironment clean
+	self environment cleanGlobalVariables.
+	self environment addGlobalsNamed: #(#Smalltalk #SourceFiles #Transcript #Undeclared #Display #TextConstants  #Sensor #Processor #SystemOrganization).
+	self environment clean
 
 ]

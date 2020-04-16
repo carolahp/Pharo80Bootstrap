@@ -98,7 +98,7 @@ PBImageBuilderCandle >> createVMStubs [
 
 	| specialObjectsArray |
 	super log: 'creating initial Objects needed by the VM'.
-	
+	self halt.
 	self createNil.	
 	self createFalse.
 	self createTrue.

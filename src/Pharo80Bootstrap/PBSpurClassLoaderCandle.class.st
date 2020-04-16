@@ -87,7 +87,7 @@ PBSpurClassLoaderCandle >> initializeClassPool: aClassName [
 		classVar := (self classNamed: self systemDefinition classClassVariable name) basicNew.
 		classVar instanceVariableAtIndex: 1 put: (each asLiteralInObjectSpace: builder objectSpace) ].
 	
-	class := environment at: aClassName.
+	class := (environment at: aClassName) asClassMirror.
 	classPool := builder bootstrapInterpreter
 		evaluateCode: 'aClassVariableNamesCollection asDictionary'
 		withTemps: { 
@@ -117,7 +117,7 @@ PBSpurClassLoaderCandle >> metaclassClass [
 	aClassMapping := self systemDefinition classNamed: #PCMetaclass.
 	classFormat := self formatOfClass: aClassMapping.	
 	metaclassFormat := self formatOfClass: aClassMapping metaclass.
-	
+	self halt.
 	metaclassIndex := self newClassIndex.
 	classIndex := self newClassIndex.
 	

@@ -10,7 +10,7 @@ Class {
 { #category : #bootstrapping }
 PBBootstrapManual >> bootstrap [
 	"I should be excecuted only if my environment was set beforehand"
-	ringEnvironment ifNil: [ Error signal: 'Ring environment must be set before bootstraping' ].
+	self environment ifNil: [ Error signal: 'Ring environment must be set before bootstraping' ].
 	PBStepStartedSignal log: 'Starting  Process.'.
 	
 	self prepareBootstrap.
@@ -32,8 +32,8 @@ PBBootstrapManual >> createImage [
 	builder := self builderClass new. "only available for 32 bits"
 	builder versionInfo: versionInfo.
 	builder imageFileReference: imageReference.
-	builder systemDefinition: ringEnvironment.
-	builder espellBackend instanceVariableMapping: (self instanceVariableMappingClass  onEnvironment: ringEnvironment ).
+	builder systemDefinition: self environment.
+	builder espellBackend instanceVariableMapping: (self instanceVariableMappingClass  onEnvironment: self environment ).
 		
 	builder bootstrapManual
 ]
@@ -54,9 +54,9 @@ PBBootstrapManual >> prepareBootstrap [
 	"preparation steps for manual bootstrap"
 	self ensureBaselineOfPharoBootstrap.
 	"the next lines are from the original method 'PBBootstrap>>prepareEnvironmentForHermes"
-	ringEnvironment fixProtoObjectClassSuperclass.
-	ringEnvironment addGlobalsNamed: #(Smalltalk Transcript FileStream MacRomanTextConverter ChangeSet Character SourceFiles Processor Display Sensor UTF8TextConverter SystemOrganization Undeclared TextConstants).
-	ringEnvironment clean.
+	self environment fixProtoObjectClassSuperclass.
+	self environment addGlobalsNamed: #(Smalltalk Transcript FileStream MacRomanTextConverter ChangeSet Character SourceFiles Processor Display Sensor UTF8TextConverter SystemOrganization Undeclared TextConstants).
+	self environment clean.
 	"end of fix"
 	self prepareEnvironmentForExportKeepingPackages: #BaselineOfPharoBootstrap asClass kernelPackageNames, PBBuilder TestsForBootstrap .
 ]

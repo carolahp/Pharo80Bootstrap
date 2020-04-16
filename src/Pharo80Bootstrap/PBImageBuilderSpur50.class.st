@@ -147,7 +147,7 @@ PBImageBuilderSpur50 >> createFalse [
 
 	"False format should be changed and calculated depending on the image"
 	| falseClassIndex falseObject newOop |
-	falseClassIndex := self nextOrdinaryClassIndex.
+	falseClassIndex := self classLoader newClassIndex.
 	falseObject := self objectSpace backend 
 		createObjectWithFormat: False format withSize: 0 classIndex: falseClassIndex.
 	objectSpace falseObject: falseObject.
@@ -160,9 +160,9 @@ PBImageBuilderSpur50 >> createNil [
 
 	"UndefinedObject format should be changed and calculated depending on the image"
 	| undefinedObjectClassIndex nilObject newOop |
-	undefinedObjectClassIndex := self nextOrdinaryClassIndex.
-	nilObject := self objectSpace backend 
-		createObjectWithFormat: UndefinedObject format withSize: 0 classIndex: undefinedObjectClassIndex.
+	undefinedObjectClassIndex := self classLoader newClassIndex.
+	nilObject := (self objectSpace backend 
+		createObjectWithFormat: UndefinedObject format withSize: 0 classIndex: undefinedObjectClassIndex) asClassMirror.
 	objectSpace nilObject: nilObject.
 	^ objectSpace nilObject
 ]
@@ -172,7 +172,7 @@ PBImageBuilderSpur50 >> createTrue [
 
 	"True format should be changed and calculated depending on the image"
 	| trueClassIndex trueObject newOop |
-	trueClassIndex := self nextOrdinaryClassIndex.
+	trueClassIndex := self classLoader newClassIndex.
 	trueObject := self objectSpace backend 
 		createObjectWithFormat: True format withSize: 0 classIndex: trueClassIndex.
 	objectSpace trueObject: trueObject.

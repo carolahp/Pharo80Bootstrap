@@ -76,8 +76,8 @@ PBSpurClassLoader >> map: aClassMirror with: aDefinition [
 
 { #category : #'as yet unclassified' }
 PBSpurClassLoader >> newClassIndex [
-	
-	nextClassIndex ifNil: [ nextClassIndex := 1024 ].
+	"The first page of the class table contains special classes, so we start in the second page"
+	nextClassIndex ifNil: [ nextClassIndex := self builder objectMemory classTablePageSize ].
 	^ nextClassIndex := nextClassIndex + 1
 ]
 

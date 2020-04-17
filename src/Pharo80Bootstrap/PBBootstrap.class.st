@@ -6,7 +6,6 @@ Class {
 		'imageReference',
 		'buildNumber',
 		'originRepository',
-		'ringEnvironment',
 		'versionInfo'
 	],
 	#category : #Pharo80Bootstrap

@@ -90,6 +90,11 @@ PBImageBuilderSpur5032bitCustom >> installOnlyMarkedMethods: aBoolean [
 	installOnlyMarkedMethods := aBoolean
 ]
 
+{ #category : #'accessing-systemDefinition' }
+PBImageBuilderSpur5032bitCustom >> systemDefinitionAt: aString [ 
+	^ self systemDefinition classWithRole: aString
+]
+
 { #category : #running }
 PBImageBuilderSpur5032bitCustom >> writeImage [
 	

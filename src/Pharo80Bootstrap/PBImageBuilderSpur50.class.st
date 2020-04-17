@@ -162,7 +162,7 @@ PBImageBuilderSpur50 >> createNil [
 	| undefinedObjectClassIndex nilObject newOop |
 	undefinedObjectClassIndex := self classLoader newClassIndex.
 	nilObject := (self objectSpace backend 
-		createObjectWithFormat: UndefinedObject format withSize: 0 classIndex: undefinedObjectClassIndex) asClassMirror.
+		createObjectWithFormat: UndefinedObject format withSize: 0 classIndex: undefinedObjectClassIndex).
 	objectSpace nilObject: nilObject.
 	^ objectSpace nilObject
 ]

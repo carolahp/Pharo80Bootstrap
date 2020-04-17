@@ -90,6 +90,11 @@ PBImageBuilderSpur5032bitCustom >> installOnlyMarkedMethods: aBoolean [
 	installOnlyMarkedMethods := aBoolean
 ]
 
+{ #category : #'accessing-image' }
+PBImageBuilderSpur5032bitCustom >> spurImage [
+	^ EPSpurImage onFirstObject: espellBackend nilObject
+]
+
 { #category : #'accessing-systemDefinition' }
 PBImageBuilderSpur5032bitCustom >> systemDefinitionAt: aString [ 
 	^ self systemDefinition classWithRole: aString

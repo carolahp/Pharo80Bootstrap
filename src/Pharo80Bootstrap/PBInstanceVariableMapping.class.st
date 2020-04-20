@@ -47,6 +47,16 @@ PBInstanceVariableMapping >> allSlotsOf: aClassName [
 	^ ((environment classNamed: aClassName) allSlots collect: [ :e | e name ]) joinUsing: ' '.
 ]
 
+{ #category : #'accessing-mapping' }
+PBInstanceVariableMapping >> associationKeyIndex [
+	^ 1
+]
+
+{ #category : #'accessing-mapping' }
+PBInstanceVariableMapping >> associationValueIndex [
+	^ 2
+]
+
 { #category : #accessing }
 PBInstanceVariableMapping >> classFormatIndex [
 	^ classFormatIndex

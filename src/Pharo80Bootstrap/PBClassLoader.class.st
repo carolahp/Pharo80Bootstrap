@@ -16,6 +16,12 @@ Class {
 }
 
 { #category : #accessing }
+PBClassLoader >> builder [
+
+	^ builder
+]
+
+{ #category : #accessing }
 PBClassLoader >> builder: aBuilder [
 
 	builder := aBuilder
@@ -388,6 +394,11 @@ PBClassLoader >> registerTrait: aTraitMirror named: aName fullyLoaded: aBoolean 
 	
 	objectSpace interpreter resetClassMap.
 "
+]
+
+{ #category : #accessing }
+PBClassLoader >> systemDefinition [
+	^ self builder systemDefinition
 ]
 
 { #category : #stages }

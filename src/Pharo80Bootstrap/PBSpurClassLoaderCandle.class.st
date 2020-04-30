@@ -117,7 +117,7 @@ PBSpurClassLoaderCandle >> metaclassClass [
 	aClassMapping := self systemDefinition classNamed: #PCMetaclass.
 	classFormat := self formatOfClass: aClassMapping.	
 	metaclassFormat := self formatOfClass: aClassMapping metaclass.
-	self halt.
+	
 	metaclassIndex := self newClassIndex.
 	classIndex := self newClassIndex.
 	

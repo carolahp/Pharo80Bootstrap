@@ -12,7 +12,7 @@ PBSpurClassLoaderCandle >> classDefinitionFor: aClass [
 
 	type := self typeFor: aClass.
 	
-	classInstallerName := (self systemDefinition classWithRole: #ClassInstaller).
+	classInstallerName := self systemDefinition classClassInstaller.
 	
 	^ '| newClass |
 	newClass := (PCClassBuilder new
@@ -37,7 +37,7 @@ PBSpurClassLoaderCandle >> classDefinitionFor: aClass [
 { #category : #binding }
 PBSpurClassLoaderCandle >> classForClassMirror: anEPClassMirror [ 
 	
-	^ mirrorDefinitionMap at: anEPClassMirror ifAbsent: [ self systemDefinition classWithRole: #Class ]
+	^ mirrorDefinitionMap at: anEPClassMirror ifAbsent: [ self systemDefinition classClass ]
 ]
 
 { #category : #stubs }
@@ -50,7 +50,7 @@ PBSpurClassLoaderCandle >> createBehaviorFromDefinition: aRFiDefinition [
 		environment at: aRFiDefinition name ifAbsent: [ self createStubForClassNamed: aRFiDefinition name ]].
 	
 	newBehavior := self executeDefinitionFor: aRFiDefinition.
-	code := 	'theBehavior methodDictionary: ({classMethodDictionary} new: capacity)' format: {'classMethodDictionary'-> (self systemDefinition classWithRole: #MethodDictionary) name } asDictionary.
+	code := 	'theBehavior methodDictionary: ({classMethodDictionary} new: capacity)' format: {'classMethodDictionary'-> self systemDefinition classMethodDictionary name } asDictionary.
 		
 	"Once the class is created we set a new method dictionary with a size that will make it grow less afterwards"
 
@@ -103,7 +103,7 @@ PBSpurClassLoaderCandle >> initializeClassPool: aClassName [
 
 { #category : #stubs }
 PBSpurClassLoaderCandle >> isCompiledMethod: aClass [
-	^ aClass = (self systemDefinition classWithRole: #CompiledMethod)
+	^ aClass = self systemDefinition classCompiledMethod
 ]
 
 { #category : #stubs }

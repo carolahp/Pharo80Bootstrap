@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 PBImageBuilderCandle >> associationClass [
 	
-	^ self classNamed: (systemDefinition classWithRole: #Association) name
+	^ self classNamed: (systemDefinition classAssociation) name
 ]
 
 { #category : #accessing }

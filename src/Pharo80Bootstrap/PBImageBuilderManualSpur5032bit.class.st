@@ -7,7 +7,7 @@ Class {
 { #category : #initialization }
 PBImageBuilderManualSpur5032bit >> associationClass [
 	
-	^ self classNamed: (systemDefinition classWithRole: #Association) name
+	^ self classNamed: (systemDefinition classAssociation) name
 ]
 
 { #category : #running }

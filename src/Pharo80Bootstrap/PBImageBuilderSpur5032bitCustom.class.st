@@ -92,7 +92,7 @@ PBImageBuilderSpur5032bitCustom >> installOnlyMarkedMethods: aBoolean [
 
 { #category : #'accessing-image' }
 PBImageBuilderSpur5032bitCustom >> spurImage [
-	^ EPSpurImage onFirstObject: espellBackend nilObject
+	^ EP2SpurImage onFirstObject: espellBackend nilObject
 ]
 
 { #category : #'accessing-systemDefinition' }

@@ -39,7 +39,7 @@ PBClassDefinition >> initializeOn: aClassDefinition environment: aBootstrapEnvir
 PBClassDefinition >> innerBindingOf: aString [
 
 	(self definesClassVariable: aString asSymbol)
-		ifTrue: [ ^ EPClassVariableBinding new
+		ifTrue: [ ^ EP2ClassVariableBinding new
 				name: aString asSymbol
 					ownerName: self name
 					objectSpace: bootstrapEnvironment;
@@ -67,14 +67,14 @@ PBClassDefinition >> name [
 PBClassDefinition >> sharedPools [
 
 	^ classDefinition instanceSide sharedPools collect: [ :pool | 
-		PBClassDefinition on: pool environment: bootstrapEnvironment ]
+		self class on: pool environment: bootstrapEnvironment ]
 ]
 
 { #category : #accessing }
 PBClassDefinition >> superclass [
 	
 	classDefinition superclass ifNil: [ ^ nil ].
-	^ PBClassDefinition on: classDefinition superclass environment: bootstrapEnvironment
+	^ self class on: classDefinition superclass environment: bootstrapEnvironment
 ]
 
 { #category : #accessing }

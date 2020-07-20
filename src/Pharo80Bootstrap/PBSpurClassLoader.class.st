@@ -72,6 +72,7 @@ PBSpurClassLoader >> map: aClassMirror with: aDefinition [
 	
 	mirrorDefinitionMap at: classSideMirror put: aDefinition classSide.
 	definitionMirrorMap at: aDefinition classSide put: classSideMirror.
+	self backend installClass: aClassMirror inClassTableIndex: aClassMirror target classIndex
 ]
 
 { #category : #'as yet unclassified' }

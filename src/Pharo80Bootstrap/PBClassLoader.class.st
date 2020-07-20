@@ -327,16 +327,18 @@ PBClassLoader >> metaclassClass [
 PBClassLoader >> migrateOldClass: oldClass to: newClass [
 
 	| oldClassMetaclass |
-	
 	"We migrate the class pools"
 	oldClass asClassMirror classPool isNilObject ifFalse: [
-		newClass asClassMirror classPool: oldClass asClassMirror classPool ].
+		newClass asClassMirror classPool: oldClass asClassMirror classPool.
+		 ].
 	
 	"We migrate the class instance variables"
 	"A class has at least 14 instances variables (cf class description, behavior). Starting from 15, we get user defined class instances variables."
-	((newClass instanceVariableMapping classNumberOfVariables) + 1) to: oldClass fixedSize do: [ :index |
-		newClass instanceVariableAtIndex: index put: (oldClass instanceVariableAtIndex: index).
-	].
+	((newClass instanceVariableMapping classNumberOfVariables) + 1) 
+		to: oldClass fixedSize 
+		do: [ :index |
+			newClass instanceVariableAtIndex: index put: (oldClass instanceVariableAtIndex: index).
+		].
 
 	"We become the old class and metaclass into the new ones"
 	oldClassMetaclass := oldClass basicClass.

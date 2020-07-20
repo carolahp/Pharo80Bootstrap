@@ -59,8 +59,8 @@ PBImageBuilderSpur5032bitCustom >> initializeBootstrapEnvironment [
 	We will later replace them by real ones."
 	objectSpace := EPObjectSpace new.
 	objectSpace backend: espellBackend.
-	objectSpace characterTable: (EPExternalCharacterTable new objectSpace: objectSpace; yourself).
-	objectSpace symbolTable: (EPExternalSymbolTable new objectSpace: objectSpace; yourself).
+	objectSpace characterTable: (EP2ExternalCharacterTable new objectSpace: objectSpace; yourself).
+	objectSpace symbolTable: (EP2ExternalSymbolTable new objectSpace: objectSpace; yourself).
 	
 	classLoader createJustStubs.
 	classLoader environment: bootstrapEnvironment.

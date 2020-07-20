@@ -65,7 +65,7 @@ PBImageBuilderManualSpur5032bit >> createInitialObjects [
 	
 	PBSubStepFinishedSignal emit: 'Initializing Character Table'.
 	self bootstrapInterpreter evaluateCode: 'Character initialize.'.
-	characterTable := (EPInternalCharacterTable new objectSpace: objectSpace).
+	characterTable := (EP2InternalCharacterTable new objectSpace: objectSpace).
 	objectSpace backend characterTable: ((self classNamed: #Character) classPool at: #CharacterTable).
 	objectSpace characterTable: characterTable.
 	
@@ -89,7 +89,7 @@ PBImageBuilderManualSpur5032bit >> createInitialObjects [
 	PBSubStepFinishedSignal emit: 'Installing symbol table'.
 	self bootstrapInterpreter evaluateCode: 'Symbol initialize.
 	Symbol classPool at: #SymbolTable put: (WeakSet withAll: ByteSymbol allInstances)'.
-	objectSpace symbolTable: (EPInternalSymbolTable new objectSpace: objectSpace).
+	objectSpace symbolTable: (EP2InternalSymbolTable new objectSpace: objectSpace).
 
 	
 	PBSubStepFinishedSignal emit: 'Bootstrapping class layouts'.

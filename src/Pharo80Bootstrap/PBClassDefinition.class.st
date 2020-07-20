@@ -41,8 +41,8 @@ PBClassDefinition >> innerBindingOf: aString [
 	(self definesClassVariable: aString asSymbol)
 		ifTrue: [ ^ EP2ClassVariableBinding new
 				name: aString asSymbol
-					ownerName: self name
-					objectSpace: bootstrapEnvironment;
+				ownerName: self name
+				objectSpace: bootstrapEnvironment builder espellBackend objectSpace;
 				yourself ].
 		
 	self sharedPools

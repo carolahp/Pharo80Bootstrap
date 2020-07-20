@@ -249,7 +249,7 @@ PBImageBuilder50 >> createClasses [
 	smalltalkInstance := bootstrapEnvironment at: #Smalltalk.
 	objectSpace interpreter: bootstrapInterpreter.
 	objectSpace backend smalltalkInstance: smalltalkInstance.
-	objectSpace environment: ((EPSystemDictionary withSystemDictionary: objectSpace backend systemDictionary) objectSpace: objectSpace; yourself).
+	objectSpace environment: ((EP2SystemDictionary withSystemDictionary: objectSpace backend systemDictionary) objectSpace: objectSpace; yourself).
 	
 	PBStepFinishedSignal emit: 'Classes created'.
 	self checkpoint: 'created_classes'.
@@ -303,7 +303,7 @@ PBImageBuilder50 >> createInitialObjects [
 	
 	PBSubStepFinishedSignal log: 'Initializing Character Table'.
 	self bootstrapInterpreter evaluateCode: 'Character initialize.'.
-	characterTable := (EPInternalCharacterTable new objectSpace: objectSpace).
+	characterTable := (EP2InternalCharacterTable new objectSpace: objectSpace).
 	objectSpace backend characterTable: ((self classNamed: #Character) classPool at: #CharacterTable).
 	objectSpace characterTable: characterTable.
 	
@@ -327,7 +327,7 @@ PBImageBuilder50 >> createInitialObjects [
 	PBSubStepFinishedSignal log: 'Installing symbol table'.
 	self bootstrapInterpreter evaluateCode: 'Symbol initialize.
 	Symbol classPool at: #SymbolTable put: (WeakSet withAll: ByteSymbol allInstances)'.
-	objectSpace symbolTable: (EPInternalSymbolTable new objectSpace: objectSpace).
+	objectSpace symbolTable: (EP2InternalSymbolTable new objectSpace: objectSpace).
 
 	
 	PBSubStepFinishedSignal log: 'Bootstrapping class layouts'.
@@ -527,8 +527,8 @@ PBImageBuilder50 >> initializeBootstrapEnvironment [
 	We will later replace them by real ones."
 	objectSpace := EPObjectSpace new.
 	objectSpace backend: espellBackend.
-	objectSpace characterTable: (EPExternalCharacterTable new objectSpace: objectSpace; yourself).
-	objectSpace symbolTable: (EPExternalSymbolTable new objectSpace: objectSpace; yourself).
+	objectSpace characterTable: (EP2ExternalCharacterTable new objectSpace: objectSpace; yourself).
+	objectSpace symbolTable: (EP2ExternalSymbolTable new objectSpace: objectSpace; yourself).
 	
 	classLoader createJustStubs.
 	classLoader environment: bootstrapEnvironment.

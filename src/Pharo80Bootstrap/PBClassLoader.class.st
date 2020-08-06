@@ -354,6 +354,12 @@ PBClassLoader >> next [
 ]
 
 { #category : #registration }
+PBClassLoader >> registerClass: aClassMirror definition: aRGBehavior fullyLoaded: aBoolean [
+	self deprecated: 'use PBClassLoaderGeneric'.
+	^ self registerClass: aClassMirror named: aRGBehavior name fullyLoaded: aBoolean
+]
+
+{ #category : #registration }
 PBClassLoader >> registerClass: aClassMirror named: aName [
 
 	^ self registerClass: aClassMirror named: aName fullyLoaded: false

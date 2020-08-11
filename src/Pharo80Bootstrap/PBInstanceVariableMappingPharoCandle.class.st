@@ -39,7 +39,7 @@ PBInstanceVariableMappingPharoCandle >> initializeIndexes [
 	"processNameIndex := self lookup: #name in: #Process."
 	
 	" SmalltalkImage "
-	pcSmalltalk := environment classSmalltalk name.
+	pcSmalltalk := environment classSmalltalkImage name.
 	smalltalkImageGlobalsIndex := self lookup: #globals in: pcSmalltalk.
 	
 	" ProcessorScheduler "
